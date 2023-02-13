@@ -28,13 +28,19 @@ Follow these instructions to get started with `doi2bibtex`:
 
 ### 🤓 Installation
 
-If you don’t want to clone this repository, you can also install the package straight fro GitHub using `pip`:
+You can simply `pip`-install the package using:
 
 ```bash
-pip install 'doi2bibtex @ https://github.com/timothygebhard/doi2bibtex.git'
+pip install doi2bibtex
 ```
 
-Adding this package to PyPI is on the to-do list.
+Alternatively, you can also clone the repository and install the package locally:
+
+```bash
+git clone https://github.com/timothygebhard/doi2bibtex.git
+cd doi2bibtex
+pip install .
+```
 
 
 
