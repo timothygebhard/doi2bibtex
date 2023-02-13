@@ -12,7 +12,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.8, 3.9, 3.10, 3.11]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     steps:
     - uses: actions/checkout@v1
@@ -37,7 +37,7 @@ jobs:
         flake8 . --count --show-source --statistics
     - name: Run mypy (package)
       run: |
-        mypy -p gb
+        mypy -p doi2bibtex
     - name: Run mypy (tests)
       run: |
         mypy tests
