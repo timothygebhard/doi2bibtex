@@ -8,16 +8,13 @@
 
 **doi2bibtex** is a small Python package that can be used to resolve DOIs and arXiv identifiers into a BibTeX entry and format them according to a customizable set of rules (see below for a full list of features). 
 
-Here’s a demo of how that looks in practice:
-
-
-
 <p align="center">
-  <img src="https://timothygebhard.de/files/d2b.gif" width="640" alt="A GIF showing how to use doi2bibtex in the command line">
+   Here’s a demo of how that looks in practice:<br>
+   <img src="https://timothygebhard.de/files/d2b.gif" width="640" alt="A GIF showing how to use doi2bibtex in the command line">
 </p>
 
 
-Most features of **doi2bibtex** are availabe in other tools. For example, you can chain together [doi2bib](https://www.doi2bib.org) with [bibtool](https://github.com/ge-ne/bibtool) or [bibtex-tidy](https://github.com/FlamingTempura/bibtex-tidy) and recover most of the functionality in this package (and some of these tools are actually used under the hood). If you use reference managers like [zotero](https://www.zotero.org/) or [Mendeley](https://www.mendeley.com/), you can also resolve papers based on an identifier and later export entries to a `.bib` file.
+Most features of **doi2bibtex** are availabe in other tools. For example, you can chain together [doi2bib](https://www.doi2bib.org) with [bibtool](https://github.com/ge-ne/bibtool) or [bibtex-tidy](https://github.com/FlamingTempura/bibtex-tidy) and recover most of the functionality in this package (and some of these tools are actually used under the hood). If you use a reference manager like [zotero](https://www.zotero.org/) or [Mendeley](https://www.mendeley.com/), you can also resolve papers based on an identifier and later export entries to a `.bib` file.
 
 The motivation for **doi2bibtex** was rather personal and came from two facts: 1. I have a rather strong opinion on how I want my bibliography entries to look like, and 2. I work on the intersection of astrophysics and machine learning, meaning that I often need the [NASA/ADS](https://adsabs.harvard.edu) bibcodes for the `adsurl` field, but I can’t solely on ADS to retrieve BibTeX entries because I also frequently cite papers that are not indexed by ADS. At some point, I got tired of the ever-growing mess of shell scripts and bash commands that I used to achieve this, and decided to re-write as a single package that would be easier to maintain and extend.
 
