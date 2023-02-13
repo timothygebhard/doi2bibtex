@@ -1,9 +1,10 @@
-# doi2bibtex
-
-![Python 3.8 | 3.9 | 3.10 | 3.11](https://img.shields.io/badge/python-3.8_|_3.9_|_3.10_|_3.11-blue)
-[![Checked with MyPy](https://img.shields.io/badge/mypy-checked-blue)](https://github.com/python/mypy)
-[![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
-[![Tests](https://github.com/timothygebhard/doi2bibtex/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/timothygebhard/doi2bibtex/actions/workflows/tests.yaml)
+<h1 align="center">doi2bibtex</h1>
+<p align="center">
+<img src="https://img.shields.io/badge/python-3.8_|_3.9_|_3.10_|_3.11-blue" alt="Python versions: 3.8, 3.9, 3.10, 3.11">
+<a href="https://github.com/python/mypy"><img src="https://img.shields.io/badge/mypy-checked-1E5082" alt="Type annotations checked with MyPy"></a>
+<a href="https://github.com/ambv/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
+<a href="https://github.com/timothygebhard/doi2bibtex/actions/workflows/tests.yaml"><img src="https://github.com/timothygebhard/doi2bibtex/actions/workflows/tests.yaml/badge.svg?branch=main" alt="Test status"></a>
+</p>
 
 **doi2bibtex** is a small Python package that can be used to resolve DOIs and arXiv identifiers into a BibTeX entry and format them according to a customizable set of rules (see below for a full list of features). 
 
