@@ -1,9 +1,9 @@
 # doi2bibtex
 
-![Python 3.8 | 3.9](https://img.shields.io/badge/python-3.8_|_3.9-blue)
+![Python 3.8 | 3.9 | 3.10 | 3.11](https://img.shields.io/badge/python-3.8_|_3.9_|_3.10_|_3.11-blue)
 [![Checked with MyPy](https://img.shields.io/badge/mypy-checked-blue)](https://github.com/python/mypy)
 [![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
-![Tests](https://github.com/timothygebhard/doi2bibtex/workflows/Tests/badge.svg?branch=master)
+[![Tests](https://github.com/timothygebhard/doi2bibtex/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/timothygebhard/doi2bibtex/actions/workflows/tests.yaml)
 
 **doi2bibtex** is a small Python package that can be used to resolve DOIs and arXiv identifiers into a BibTeX entry and format them according to a customizable set of rules (see below for a full list of features). 
 
@@ -12,7 +12,7 @@ Here’s a demo of how that looks in practice:
 
 
 <p align="center">
-  <img src="https://timothygebhard.de/files/d2b.gif" width="600" alt="A GIF showing how to use doi2bibtex in the command line">
+  <img src="https://timothygebhard.de/files/d2b.gif" width="640" alt="A GIF showing how to use doi2bibtex in the command line">
 </p>
 
 
