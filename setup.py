@@ -21,6 +21,10 @@ setup(
     description=(
         "Resolve DOIs and arXiv identifiers to formatted BibTeX entries"
     ),
+    long_description=(
+        "See [project homepage](https://github.com/timothygebhard/doi2bib) "
+        "for more information."
+    ),
     long_description_content_type="text/markdown",
     classifiers=[
         "License :: OSI Approved :: BSD License",
