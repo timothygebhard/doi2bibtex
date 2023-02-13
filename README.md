@@ -11,8 +11,9 @@ Here’s a demo of how that looks in practice:
 
 
 
-<img src="https://timothygebhard.de/files/d2b.gif" style="width: 600px; margin: auto;" alt="A GIF showing how to use doi2bibtex in the command line">
-
+<p align="center">
+  <img src="https://timothygebhard.de/files/d2b.gif" width="600" alt="A GIF showing how to use doi2bibtex in the command line">
+</p>
 
 
 Most features of **doi2bibtex** are availabe in other tools. For example, you can chain together [doi2bib](https://www.doi2bib.org) with [bibtool](https://github.com/ge-ne/bibtool) or [bibtex-tidy](https://github.com/FlamingTempura/bibtex-tidy) and recover most of the functionality in this package (and some of these tools are actually used under the hood). If you use reference managers like [zotero](https://www.zotero.org/) or [Mendeley](https://www.mendeley.com/), you can also resolve papers based on an identifier and later export entries to a `.bib` file.
