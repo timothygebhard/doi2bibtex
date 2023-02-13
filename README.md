@@ -1,6 +1,7 @@
 <h1 align="center">doi2bibtex</h1>
 <p align="center">
-<img src="https://img.shields.io/badge/python-3.8_|_3.9_|_3.10_|_3.11-blue" alt="Python versions: 3.8, 3.9, 3.10, 3.11">
+<img src="https://img.shields.io/badge/python-3.8+-blue" alt="Python versions: 3.8+">
+<a href="https://pypi.org/project/doi2bibtex"><img src="https://badge.fury.io/py/doi2bibtex.svg" alt="PyPI version"></a>
 <a href="https://github.com/python/mypy"><img src="https://img.shields.io/badge/mypy-checked-1E5082" alt="Type annotations checked with MyPy"></a>
 <a href="https://github.com/ambv/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
 <a href="https://github.com/timothygebhard/doi2bibtex/actions/workflows/tests.yaml"><img src="https://github.com/timothygebhard/doi2bibtex/actions/workflows/tests.yaml/badge.svg?branch=main" alt="Test status"></a>
