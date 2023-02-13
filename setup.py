@@ -16,7 +16,6 @@ from setuptools import find_packages, setup
 # Run setup()
 setup(
     name='doi2bibtex',
-    version='0.1.0',
     author='Timothy Gebhard',
     url='https://github.com/timothygebhard/doi2bib',
     description='doi2bibtex: Get BibTeX entries from a DOI or arXiv ID',
@@ -50,6 +49,8 @@ setup(
             'd2b = doi2bibtex.cli:main',
         ],
     },
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
     packages=find_packages(),
     zip_safe=False,
 )
