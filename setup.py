@@ -17,12 +17,12 @@ from setuptools import find_packages, setup
 setup(
     name="doi2bibtex",
     author="Timothy Gebhard",
-    url="https://github.com/timothygebhard/doi2bib",
+    url="https://github.com/timothygebhard/doi2bibtex",
     description=(
         "Resolve DOIs and arXiv identifiers to formatted BibTeX entries"
     ),
     long_description=(
-        "See [project homepage](https://github.com/timothygebhard/doi2bib) "
+        "See [project homepage](https://github.com/timothygebhard/doi2bibtex) "
         "for more information."
     ),
     long_description_content_type="text/markdown",
