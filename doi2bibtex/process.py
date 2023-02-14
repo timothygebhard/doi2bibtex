@@ -11,6 +11,7 @@ from bibtexparser.customization import splitname
 from doi2bibtex.ads import resolve_ads_bibcode
 from doi2bibtex.config import Configuration
 from doi2bibtex.constants import JOURNAL_ABBREVIATIONS
+from doi2bibtex.dblp import crossmatch_with_dblp
 from doi2bibtex.identify import is_arxiv_id
 from doi2bibtex.utils import (
     doi_to_url,
@@ -94,6 +95,10 @@ def postprocess_bibtex(
     # Remove the URL if it contains the same information as the DOI
     if config.remove_url_if_doi:
         bibtex_dict = remove_url_if_doi(bibtex_dict)
+
+    # Try to crossmatch the entry with dblp to get venue information
+    if config.crossmatch_with_dblp:  # pragma: no cover
+        bibtex_dict = crossmatch_with_dblp(bibtex_dict, identifier)
 
     return bibtex_dict
 

@@ -26,6 +26,7 @@ class Configuration:
         self.citekey_delimiter: str = "_"
         self.convert_latex_chars: bool = True
         self.convert_month_to_number: bool = True
+        self.crossmatch_with_dblp: bool = False
         self.fix_arxiv_entrytype: bool = True
         self.format_author_names: bool = True
         self.generate_citekey: bool = True
