@@ -25,7 +25,7 @@ def test__crossmatch_with_dblp(monkeypatch: pytest.MonkeyPatch) -> None:
 
     # Case 1: no title / author
     identifier = "1312.6114"
-    bibtex_dict = {'key': 'value'}
+    bibtex_dict = {"key": "value"}
     crossmatched = crossmatch_with_dblp(bibtex_dict, identifier)
     assert crossmatched == bibtex_dict
 
@@ -45,7 +45,7 @@ def test__crossmatch_with_dblp(monkeypatch: pytest.MonkeyPatch) -> None:
     try:
         identifier = "invalid-identifier"
         bibtex_dict = {
-            "title" : "Auto-Encoding Bayes",
+            "title": "Auto-Encoding Bayes",
             "author": "Kingma, Diederik P and Welling, Max",
         }
         crossmatched = crossmatch_with_dblp(bibtex_dict, identifier)
@@ -58,7 +58,7 @@ def test__crossmatch_with_dblp(monkeypatch: pytest.MonkeyPatch) -> None:
     try:
         identifier = "1312.6114"
         bibtex_dict = {
-            "title" : "Auto-Encoding Variational Bayes",
+            "title": "Auto-Encoding Variational Bayes",
             "author": "Kingma, Diederik P and Welling, Max",
         }
         crossmatched = crossmatch_with_dblp(bibtex_dict, identifier)
@@ -71,7 +71,7 @@ def test__crossmatch_with_dblp(monkeypatch: pytest.MonkeyPatch) -> None:
     try:
         identifier = "1807.01613"
         bibtex_dict = {
-            "title" : "Conditional Neural Processes",
+            "title": "Conditional Neural Processes",
             "author": "Garnelo, Martha and others",
         }
         crossmatched = crossmatch_with_dblp(bibtex_dict, identifier)
@@ -84,7 +84,7 @@ def test__crossmatch_with_dblp(monkeypatch: pytest.MonkeyPatch) -> None:
     try:
         identifier = "2110.06562"
         bibtex_dict = {
-            "title" : "On the Fairness of Causal Algorithmic Recourse",
+            "title": "On the Fairness of Causal Algorithmic Recourse",
             "author": "Julius von Kügelgen and others",
         }
         crossmatched = crossmatch_with_dblp(bibtex_dict, identifier)
@@ -97,7 +97,7 @@ def test__crossmatch_with_dblp(monkeypatch: pytest.MonkeyPatch) -> None:
     try:
         identifier = "10.1088/1742-6596/898/7/072029"
         bibtex_dict = {
-            "title" : "Software Quality Control at Belle II",
+            "title": "Software Quality Control at Belle II",
             "author": "M Ritter and others",
         }
         crossmatched = crossmatch_with_dblp(bibtex_dict, identifier)
