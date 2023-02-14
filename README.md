@@ -15,9 +15,12 @@
 </p>
 
 
-Most features of **doi2bibtex** are availabe in other tools. For example, you can chain together [doi2bib](https://www.doi2bib.org) with [bibtool](https://github.com/ge-ne/bibtool) or [bibtex-tidy](https://github.com/FlamingTempura/bibtex-tidy) and recover most of the functionality in this package (and some of these tools are actually used under the hood). If you use a reference manager like [zotero](https://www.zotero.org/) or [Mendeley](https://www.mendeley.com/), you can also resolve papers based on an identifier and later export entries to a `.bib` file.
+Most features of **doi2bibtex** are availabe in other tools. 
+For example, you can chain together [doi2bib](https://www.doi2bib.org) with [bibtool](https://github.com/ge-ne/bibtool) or [bibtex-tidy](https://github.com/FlamingTempura/bibtex-tidy) and recover most of the functionality in this package (and some of these tools are actually used under the hood). 
+If you use a reference manager like [zotero](https://www.zotero.org/) or [Mendeley](https://www.mendeley.com/), you can also resolve papers based on an identifier and later export entries to a `.bib` file.
 
-The motivation for **doi2bibtex** was rather personal and came from two facts: 1. I have a rather strong opinion on how I want my bibliography entries to look like, and 2. I work on the intersection of astrophysics and machine learning, meaning that I often need the [NASA/ADS](https://adsabs.harvard.edu) bibcodes for the `adsurl` field, but I can’t solely on ADS to retrieve BibTeX entries because I also frequently cite papers that are not indexed by ADS. At some point, I got tired of the ever-growing mess of shell scripts and bash commands that I used to achieve this, and decided to re-write as a single package that would be easier to maintain and extend.
+The motivation for **doi2bibtex** was rather personal and came from two facts: 1. I have a rather strong opinion on how I want my `.bib` files to look like, and 2. I work on the intersection of astrophysics and machine learning, meaning that I often need the [NASA/ADS](https://adsabs.harvard.edu) bibcodes for the `adsurl` field, but I can’t solely rely on ADS to retrieve BibTeX entries because I also frequently cite papers that are not indexed by ADS. 
+At some point, I got tired of the ever-growing mess of shell scripts and bash commands that I used to achieve this, and decided to re-write as a single package that would be easier to maintain and extend.
 
 
 
@@ -81,6 +84,7 @@ abbreviate_journal_names: true  # Convert journal names to LaTeX macros (e.g., "
 citekey_delimiter: '_'          # Delimiter between the author name and the year of publication
 convert_latex_chars: true       # Convert LaTeX-encoded characters in author names to Unicode
 convert_month_to_number: true   # Convert month names to numbers (e.g., "1" instead of "jan")
+crossmatch_with_dblp: false     # [EXPERIMENTAL] Try to crossmatch the paper with DBLP to add venue information to `addendum` (for ML conferences papers)
 fix_arxiv_entrytype: true       # Convert arXiv entries to `@article`, set `journal` to "arXiv preprints", and drop the `eprinttype` field
 format_author_names: true       # Convert author names to the "{Lastname}, Firstname" format
 generate_citekey: true          # Create a citekey based on the first author and year of publication
@@ -101,6 +105,7 @@ update_arxiv_if_doi: true       # Update arXiv entries with DOI information, if 
 Besides the eponymous ability of resolving DOIs (and arXiv identifiers) to BibTeX entries, this package offers a lot more features for post-processing the entries. Here are some highlights:
 
 - Automatically resolve the `adsurl` field required by many astrophysics journals
+- Cross-match entries (in particular: arXiv preprints) with [dblp.org](https://dblp.org/) to retrieve the venue information for conference papers from machine learning (e.g., "ICLR 2021"). Note: This feature is still experimental because querying dblp is somewhat fickle.
 - Convert LaTeX-encoded characters in author names to Unicode, for example, `Müller` instead of `M{\"u}ller`
 - Author names can automatically be converted to the `{Lastname}, Firstname` format
 - You can limit the number of authors in the BibTeX entry
