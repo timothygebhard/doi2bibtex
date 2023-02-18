@@ -13,6 +13,27 @@ import re
 # DEFINTIONS
 # -----------------------------------------------------------------------------
 
+def is_ads_bibcode(identifier: str) -> bool:
+    """
+    Check if the given `identifier` is an ADS bibcode.
+    """
+
+    # Define a pattern for ADS bibcodes (basic format: "YYYYJJJJJVVVVMPPPPA")
+    # For details, see: https://ui.adsabs.harvard.edu/help/actions/bibcode
+    pattern = (
+        r"^"
+        r"(?P<YYYY>\d{4})"
+        r"(?P<JJJJJ>[\w\.\&]{5})"
+        r"(?P<VVVV>[\w\.]{4})"
+        r"(?P<M>\S)"
+        r"(?P<PPPP>[\d\.]{4})"
+        r"(?P<A>[A-Z])"
+        r"$"
+    )
+
+    return re.match(pattern, identifier) is not None
+
+
 def is_arxiv_id(identifier: str) -> bool:
     """
     Check if the given `identifier` is an arXiv ID.
