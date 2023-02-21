@@ -31,7 +31,7 @@ def parse_cli_args(args: Any = None) -> Namespace:
     parser = ArgumentParser()
     parser.add_argument(
         "identifier",
-        metavar="<doi-or-arxiv-id>",
+        metavar="IDENTIFIER",
         nargs='?',
         help="Identifier to resolve (DOI or arXiv ID).",
     )
