@@ -358,7 +358,7 @@ def test__resolve_adsurl() -> None:
     # Case 3
     assert not DeepDiff(
         resolve_adsurl({}, identifier="10.1103/PhysRevLett.116.061102"),
-        {"adsurl": "https://adsabs.harvard.edu/abs/2019PhRvD..99h4054S"},
+        {"adsurl": "https://adsabs.harvard.edu/abs/2016PhRvL.116f1102A"},
     )
 
 
