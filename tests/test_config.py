@@ -6,8 +6,11 @@ Unit tests for config.py.
 # IMPORTS
 # -----------------------------------------------------------------------------
 
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
+
+from deepdiff import DeepDiff
 
 import pytest
 
@@ -18,18 +21,21 @@ from doi2bibtex.config import Configuration
 # UNIT TESTS
 # -----------------------------------------------------------------------------
 
-@pytest.fixture
-def mock_open(mocker: Any) -> None:
+@pytest.fixture(params=[True, False])
+def mock_open(request: Any, mocker: Any) -> None:
     """
-    Mock the built-in `open()` function to always return a file-like
-    object with the contents "hazzuh".
+    Mock the built-in `open()` function to return a file-like object,
+    either empty or with a fake YAML configuration file.
     """
 
     # String of a fake YAML configuration file
-    yaml_file = """
-    limit_authors: 3
-    ignored_property: "some value"
-    """
+    if request.param:
+        yaml_file = ""
+    else:
+        yaml_file = """
+        limit_authors: 3
+        ignored_property: "some value"
+        """
 
     # Patch the built-in `open()` function to return the fake YAML file
     mocker.patch("builtins.open", mocker.mock_open(read_data=yaml_file))
@@ -50,12 +56,27 @@ def test__configuration(
     assert config.limit_authors == 1000
     assert len(str(config).split('\n')) == len(vars(config)) + 2
 
-    # Case 2: Use mock_open to simulate that there is a config file that
-    # overwrites the defaults
-    with monkeypatch.context() as m:
-        m.setattr(Path, 'exists', lambda _: True)
-        with pytest.warns(UserWarning) as user_warning:
+    # Copy the default configuration object (we will use this later)
+    default_config = deepcopy(config)
+
+    # Check what the `mock_open` fixture does (i.e., if it returns an empty
+    # file or a fake YAML file)
+    with open('') as f:
+        is_empty = f.read() == ''
+
+    # Case 2a: If the file is empty, we do not get a warning
+    if is_empty:
+        with monkeypatch.context() as m:
+            m.setattr(Path, 'exists', lambda _: True)
             config = Configuration()
-    assert "Ignoring unknown configuration key" in str(user_warning[0].message)
-    assert config.limit_authors == 3
-    assert 'ignored_property' not in vars(config)
+        assert not DeepDiff(config, default_config)
+
+    # Case 2b: If the file is not empty, we do get a warning
+    else:
+        with monkeypatch.context() as m:
+            m.setattr(Path, 'exists', lambda _: True)
+            with pytest.warns(UserWarning) as user_warning:
+                config = Configuration()
+        assert "Ignoring unknown " in str(user_warning[0].message)
+        assert config.limit_authors == 3
+        assert 'ignored_property' not in vars(config)
