@@ -14,6 +14,7 @@ import sys
 from rich.console import Console, Text
 from rich.syntax import Syntax
 
+from doi2bibtex import __version__
 from doi2bibtex.config import Configuration
 from doi2bibtex.resolve import resolve_identifier
 
@@ -31,13 +32,18 @@ def parse_cli_args(args: Any = None) -> Namespace:
     parser.add_argument(
         "identifier",
         metavar="<doi-or-arxiv-id>",
-        nargs=1,
+        nargs='?',
         help="Identifier to resolve (DOI or arXiv ID).",
     )
     parser.add_argument(
         "--plain",
         action="store_true",
         help="Print result plain text. Useful for piping to other programs.",
+    )
+    parser.add_argument(
+        "--version",
+        action="store_true",
+        help="Print the version number and exit.",
     )
     parsed_args = parser.parse_args(args)
     return parsed_args
@@ -92,6 +98,11 @@ def main() -> None:  # pragma: no cover
     # Get command line arguments and load the configuration
     args = parse_cli_args(sys.argv[1:])
     config = Configuration()
+
+    # Print the version number and exit if requested
+    if args.version:
+        print(__version__)
+        sys.exit(0)
 
     # Either print the result as plain text, or make it fancy
     if args.plain:
