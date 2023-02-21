@@ -26,21 +26,19 @@ def test__parse_cli_args(capsys: pytest.CaptureFixture) -> None:
     # Case 1
     args = parse_cli_args(["some-id"])
     assert not args.plain
-    assert len(args.identifier) == 1
-    assert args.identifier[0] == "some-id"
+    assert args.identifier == "some-id"
 
     # Case 2
     args = parse_cli_args(["some-other-id", "--plain"])
     assert args.plain
-    assert len(args.identifier) == 1
-    assert args.identifier[0] == "some-other-id"
+    assert args.identifier == "some-other-id"
 
     # Case 3
     try:
         parse_cli_args(["--help"])
     except SystemExit:
         pass
-    assert "[-h] [--plain] <doi-or-arxiv-id>" in capsys.readouterr().out
+    assert "[-h] [--plain] [--version] [IDENTIFIER]" in capsys.readouterr().out
 
 
 def test__plain(
