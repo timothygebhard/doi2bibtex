@@ -6,10 +6,13 @@ Methods for resolving identifiers to BibTeX entries.
 # IMPORTS
 # -----------------------------------------------------------------------------
 
-import requests
-
 from bs4 import BeautifulSoup
 
+import json
+
+import requests
+
+from doi2bibtex.ads import get_ads_token
 from doi2bibtex.bibtex import bibtex_string_to_dict, dict_to_bibtex_string
 from doi2bibtex.config import Configuration
 from doi2bibtex.identify import is_arxiv_id, is_doi
@@ -19,6 +22,39 @@ from doi2bibtex.process import preprocess_identifier, postprocess_bibtex
 # -----------------------------------------------------------------------------
 # DEFINITIONS
 # -----------------------------------------------------------------------------
+
+def resolve_ads_bibcode(ads_bibcode: str) -> dict:
+    """
+    Resolve an ADS bibcode using the ADS API and return the BibTeX.
+    """
+
+    # Get the ADS token (and raise an error if we don't have one)
+    token = get_ads_token(raise_on_error=True)
+
+    # Query the ADS API manually
+    r = requests.post(
+        url="https://api.adsabs.harvard.edu/v1/export/bibtex",
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+        },
+        data=json.dumps({"bibcode": [ads_bibcode]}),
+    )
+
+    # Check if we got a 200 response; if not, raise an error
+    if (error := r.status_code) != 200:
+        raise RuntimeError(
+            f'Error {error} resolving "{ads_bibcode}": no BibTeX entry found'
+        )
+
+    # Parse the response using JSON
+    bibtex_string = json.loads(r.text)["export"]
+
+    # Parse the bibstring to a dict
+    bibtex_dict = bibtex_string_to_dict(bibtex_string)
+
+    return bibtex_dict
+
 
 def resolve_arxiv_id(arxiv_id: str) -> dict:
     """

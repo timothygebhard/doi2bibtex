@@ -13,8 +13,10 @@ from deepdiff import DeepDiff
 
 import pytest
 
+from doi2bibtex.ads import get_ads_token
 from doi2bibtex.config import Configuration
 from doi2bibtex.resolve import (
+    resolve_ads_bibcode,
     resolve_arxiv_id,
     resolve_doi,
     resolve_identifier,
@@ -24,6 +26,25 @@ from doi2bibtex.resolve import (
 # -----------------------------------------------------------------------------
 # UNIT TESTS
 # -----------------------------------------------------------------------------
+
+# Do not run this test on CI where no ADS token is available
+@pytest.mark.skipif(
+    condition=get_ads_token() is None,
+    reason="No ADS token found.",
+)
+def test__resolve_ads_bibcode() -> None:
+
+    # Case 1: Identifier does not exist
+    with pytest.raises(RuntimeError) as runtime_error:
+        resolve_ads_bibcode("ThisIsNotAValidBibcode")
+    assert "no BibTeX entry found" in str(runtime_error)
+
+    # Case 2: Successful request
+    bibtex_dict = resolve_ads_bibcode("2022A&A...666A...9G")
+    assert bibtex_dict["ID"] == "2022A&A...666A...9G"
+    assert bibtex_dict["ENTRYTYPE"] == "article"
+    assert bibtex_dict["doi"] == "10.1051/0004-6361/202142529"
+
 
 def test__resolve_arxiv_id(monkeypatch: pytest.MonkeyPatch) -> None:
     """

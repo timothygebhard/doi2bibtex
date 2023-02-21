@@ -8,7 +8,7 @@ Look up a BibTeX entry based on a DOI or arXiv ID.
 
 from bibtexparser.customization import splitname
 
-from doi2bibtex.ads import resolve_ads_bibcode
+from doi2bibtex.ads import get_ads_bibcode_for_identifier
 from doi2bibtex.config import Configuration
 from doi2bibtex.constants import JOURNAL_ABBREVIATIONS
 from doi2bibtex.dblp import crossmatch_with_dblp
@@ -312,7 +312,7 @@ def resolve_adsurl(bibtex_dict: dict, identifier: str) -> dict:
         return bibtex_dict
 
     # Resolve the ADS bibcode
-    bibcode = resolve_ads_bibcode(identifier)
+    bibcode = get_ads_bibcode_for_identifier(identifier)
 
     # If we found a bibcode, construct the ADS URL and add it to the dict
     if bibcode:
