@@ -38,7 +38,6 @@ setup(
         "Intended Audience :: Science/Research",
     ],
     install_requires=[
-        "ads",
         "beautifulsoup4",
         "bibtexparser",
         "pylatexenc",
