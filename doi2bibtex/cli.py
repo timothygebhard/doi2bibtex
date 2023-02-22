@@ -106,6 +106,6 @@ def main() -> None:  # pragma: no cover
 
     # Either print the result as plain text, or make it fancy
     if args.plain:
-        plain(identifier=args.identifier[0], config=config)
+        plain(identifier=args.identifier, config=config)
     else:
-        fancy(identifier=args.identifier[0], config=config)
+        fancy(identifier=args.identifier, config=config)
