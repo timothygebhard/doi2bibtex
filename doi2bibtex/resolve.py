@@ -15,7 +15,7 @@ import requests
 from doi2bibtex.ads import get_ads_token
 from doi2bibtex.bibtex import bibtex_string_to_dict, dict_to_bibtex_string
 from doi2bibtex.config import Configuration
-from doi2bibtex.identify import is_arxiv_id, is_doi
+from doi2bibtex.identify import is_arxiv_id, is_doi, is_ads_bibcode
 from doi2bibtex.process import preprocess_identifier, postprocess_bibtex
 
 
@@ -121,6 +121,8 @@ def resolve_identifier(identifier: str, config: Configuration) -> str:
             bibtex_dict = resolve_doi(identifier)
         elif is_arxiv_id(identifier):
             bibtex_dict = resolve_arxiv_id(identifier)
+        elif is_ads_bibcode(identifier):
+            bibtex_dict = resolve_ads_bibcode(identifier)
         else:
             raise RuntimeError(f"Unrecognized identifier: {identifier}")
 

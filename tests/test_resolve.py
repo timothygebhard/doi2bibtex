@@ -27,13 +27,13 @@ from doi2bibtex.resolve import (
 # UNIT TESTS
 # -----------------------------------------------------------------------------
 
+
 # Do not run this test on CI where no ADS token is available
 @pytest.mark.skipif(
     condition=get_ads_token() is None,
     reason="No ADS token found.",
 )
 def test__resolve_ads_bibcode() -> None:
-
     # Case 1: Identifier does not exist
     with pytest.raises(RuntimeError) as runtime_error:
         resolve_ads_bibcode("ThisIsNotAValidBibcode")
@@ -132,8 +132,8 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
 
     # Case 1: Successfully resolve an arXiv identifier
     assert (
-        resolve_identifier("1312.6114", config)
-        == "@article{Kingma_2013,\n"
+        resolve_identifier("1312.6114", config) ==
+        "@article{Kingma_2013,\n"
         "  author    = {{Kingma}, Diederik P and {Welling}, Max},\n"
         "  eprint    = {1312.6114},\n"
         "  journal   = {arXiv preprints},\n"
@@ -144,8 +144,8 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
 
     # Case 2: Successfully resolve a DOI
     assert (
-        resolve_identifier("10.1088/1742-6596/898/7/072029", config)
-        == "@article{Ritter_2017,\n"
+        resolve_identifier("10.1088/1742-6596/898/7/072029", config) ==
+        "@article{Ritter_2017,\n"
         "  author    = {{Ritter}, M and {Kuhr}, T and others},\n"
         "  doi       = {10.1088/1742-6596/898/7/072029},\n"
         "  journal   = {Journal of Physics: Conference Series},\n"
@@ -159,10 +159,38 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
 
     # Case 3: Resolve arXiv identifier which has a DOI
     assert (
-        resolve_identifier("2204.03439", config) ==
-        resolve_identifier("10.1051/0004-6361/202142529", config)
+        resolve_identifier("2204.03439", config)
+        == resolve_identifier("10.1051/0004-6361/202142529", config)
     )
 
-    # Case 4: Failure due to invalid identifier
+    # Case 4: Resolve ADS bibcode
+    assert (
+        resolve_identifier("2010ApJ...721L..67R", config) ==
+        "@article{Robinson_2010,\n"
+        "  adsnote       = {Provided by the SAO/NASA Astrophysics "
+        "Data System},\n"
+        "  adsurl        = {https://ui.adsabs.harvard.edu/abs/"
+        "2010ApJ...721L..67R},\n"
+        "  archiveprefix = {arXiv},\n"
+        "  author        = {{Robinson}, Tyler D. and {Meadows}, "
+        "Victoria S. and others},\n"
+        "  doi           = {10.1088/2041-8205/721/1/L67},\n"
+        "  eprint        = {1008.3864},\n"
+        r"  journal       = {\apjl}," "\n"
+        "  keywords      = {astrobiology, Earth, planets and satellites: "
+        "composition, radiative transfer, scattering, techniques: "
+        "photometric, Astrophysics - Earth and Planetary Astrophysics},\n"
+        "  month         = {9},\n"
+        "  number        = {1},\n"
+        "  pages         = {L67-L71},\n"
+        "  primaryclass  = {astro-ph.EP},\n"
+        "  title         = {Detecting Oceans on Extrasolar Planets Using "
+        "the Glint Effect},\n"
+        "  volume        = {721},\n"
+        "  year          = {2010}\n"
+        "}"
+    )
+
+    # Case 5: Failure due to invalid identifier
     result = resolve_identifier("this-is-not-a-valid-identifier", config)
     assert "Unrecognized identifier" in result
