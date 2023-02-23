@@ -163,33 +163,34 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
         == resolve_identifier("10.1051/0004-6361/202142529", config)
     )
 
-    # Case 4: Resolve ADS bibcode
-    assert (
-        resolve_identifier("2010ApJ...721L..67R", config) ==
-        "@article{Robinson_2010,\n"
-        "  adsnote       = {Provided by the SAO/NASA Astrophysics "
-        "Data System},\n"
-        "  adsurl        = {https://ui.adsabs.harvard.edu/abs/"
-        "2010ApJ...721L..67R},\n"
-        "  archiveprefix = {arXiv},\n"
-        "  author        = {{Robinson}, Tyler D. and {Meadows}, "
-        "Victoria S. and others},\n"
-        "  doi           = {10.1088/2041-8205/721/1/L67},\n"
-        "  eprint        = {1008.3864},\n"
-        r"  journal       = {\apjl}," "\n"
-        "  keywords      = {astrobiology, Earth, planets and satellites: "
-        "composition, radiative transfer, scattering, techniques: "
-        "photometric, Astrophysics - Earth and Planetary Astrophysics},\n"
-        "  month         = {9},\n"
-        "  number        = {1},\n"
-        "  pages         = {L67-L71},\n"
-        "  primaryclass  = {astro-ph.EP},\n"
-        "  title         = {Detecting Oceans on Extrasolar Planets Using "
-        "the Glint Effect},\n"
-        "  volume        = {721},\n"
-        "  year          = {2010}\n"
-        "}"
-    )
+    # Case 4: Resolve ADS bibcode (only if ADS token is available)
+    if get_ads_token(raise_on_error=False) is not None:
+        assert (
+            resolve_identifier("2010ApJ...721L..67R", config) ==
+            "@article{Robinson_2010,\n"
+            "  adsnote       = {Provided by the SAO/NASA Astrophysics "
+            "Data System},\n"
+            "  adsurl        = {https://ui.adsabs.harvard.edu/abs/"
+            "2010ApJ...721L..67R},\n"
+            "  archiveprefix = {arXiv},\n"
+            "  author        = {{Robinson}, Tyler D. and {Meadows}, "
+            "Victoria S. and others},\n"
+            "  doi           = {10.1088/2041-8205/721/1/L67},\n"
+            "  eprint        = {1008.3864},\n"
+            r"  journal       = {\apjl}," "\n"
+            "  keywords      = {astrobiology, Earth, planets and satellites: "
+            "composition, radiative transfer, scattering, techniques: "
+            "photometric, Astrophysics - Earth and Planetary Astrophysics},\n"
+            "  month         = {9},\n"
+            "  number        = {1},\n"
+            "  pages         = {L67-L71},\n"
+            "  primaryclass  = {astro-ph.EP},\n"
+            "  title         = {Detecting Oceans on Extrasolar Planets Using "
+            "the Glint Effect},\n"
+            "  volume        = {721},\n"
+            "  year          = {2010}\n"
+            "}"
+        )
 
     # Case 5: Failure due to invalid identifier
     result = resolve_identifier("this-is-not-a-valid-identifier", config)
