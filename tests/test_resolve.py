@@ -34,6 +34,10 @@ from doi2bibtex.resolve import (
     reason="No ADS token found.",
 )
 def test__resolve_ads_bibcode() -> None:
+    """
+    Test `resolve_ads_bibcode()`.
+    """
+
     # Case 1: Identifier does not exist
     with pytest.raises(RuntimeError) as runtime_error:
         resolve_ads_bibcode("ThisIsNotAValidBibcode")
