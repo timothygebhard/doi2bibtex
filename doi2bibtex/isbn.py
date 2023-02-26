@@ -64,9 +64,3 @@ def resolve_isbn_with_google_api(isbn: str) -> dict:
     bibtex_dict = generate_citekey(bibtex_dict)
 
     return bibtex_dict
-
-
-from pprint import pprint
-pprint(resolve_isbn_with_google_api("978-3-030-11451-0"))
-pprint(resolve_isbn_with_google_api("978-0-691-16697-1"))
-pprint(resolve_isbn_with_google_api("978-1-4008-3530-0"))
