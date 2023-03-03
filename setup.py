@@ -40,6 +40,7 @@ setup(
     install_requires=[
         "beautifulsoup4",
         "bibtexparser",
+        "isbnlib",
         "pylatexenc",
         "pyyaml",
         "requests",
