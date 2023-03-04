@@ -7,10 +7,9 @@
 <a href="https://github.com/timothygebhard/doi2bibtex/actions/workflows/tests.yaml"><img src="https://github.com/timothygebhard/doi2bibtex/actions/workflows/tests.yaml/badge.svg?branch=main" alt="Test status"></a>
 </p>
 
-**doi2bibtex** is a small Python package that can be used to resolve DOIs and arXiv identifiers into a BibTeX entry and format them according to a customizable set of rules (see below for a full list of features). 
+**doi2bibtex** is a small Python package that can be used to resolve DOIs (and other identifiers) into a BibTeX entry and format them according to a customizable set of rules (see below for a full list of features). 
 
 <p align="center">
-   Here’s a demo of how that looks in practice:<br>
    <img src="https://timothygebhard.de/files/d2b.gif" width="640" alt="A GIF showing how to use doi2bibtex in the command line">
 </p>
 
@@ -102,7 +101,7 @@ update_arxiv_if_doi: true       # Update arXiv entries with DOI information, if 
 
 ## 🦄 Features
 
-Besides the eponymous ability of resolving DOIs (and arXiv identifiers) to BibTeX entries, this package offers a lot more features for post-processing the entries. Here are some highlights:
+Besides the eponymous ability of resolving DOIs (and other identifiers) to BibTeX entries, this package offers a lot more features for post-processing the entries. Here are some highlights:
 
 - Automatically resolve the `adsurl` field required by many astrophysics journals
 - Cross-match entries (in particular: arXiv preprints) with [dblp.org](https://dblp.org/) to retrieve the venue information for conference papers from machine learning (e.g., "ICLR 2021"). Note: This feature is still experimental because querying dblp is somewhat fickle.
