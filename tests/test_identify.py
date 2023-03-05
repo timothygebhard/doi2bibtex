@@ -6,7 +6,12 @@ Unit tests for identify.py.
 # IMPORTS
 # -----------------------------------------------------------------------------
 
-from doi2bibtex.identify import is_ads_bibcode, is_arxiv_id, is_doi
+from doi2bibtex.identify import (
+    is_ads_bibcode,
+    is_arxiv_id,
+    is_doi,
+    is_isbn,
+)
 
 
 # -----------------------------------------------------------------------------
@@ -48,3 +53,26 @@ def test__is_ads_bibcode() -> None:
     assert not is_ads_bibcode('9876ABCDF.518L..131')
     assert not is_ads_bibcode('2010.05591')
     assert not is_ads_bibcode('10.1051/0004-6361/202142529')
+
+
+def test__is_isbn() -> None:
+    """
+    Test `is_isbn()`.
+    """
+
+    # Test ISBN-10
+    assert is_isbn('0826497527')
+    assert is_isbn('isbn 0-8264-9752-7')
+    assert is_isbn('954430603X')
+    assert not is_isbn('0826497520')
+
+    # Test ISBN-13
+    assert is_isbn('9780826497529')
+    assert is_isbn('9791090636071')
+    assert is_isbn('978-3442151479')
+    assert is_isbn('978-3-16-148410-0')
+    assert is_isbn('978-3-16-148410-0')
+    assert not is_isbn('9780826497520')
+    assert not is_isbn('9700000000000')
+    assert not is_isbn('9000000000000')
+    assert not is_isbn('9710000000000')

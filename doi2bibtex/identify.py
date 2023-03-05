@@ -8,6 +8,8 @@ Methods for identifying the type of identifier (DOI or arXiv ID).
 
 import re
 
+from isbnlib import is_isbn10, is_isbn13
+
 
 # -----------------------------------------------------------------------------
 # DEFINTIONS
@@ -65,3 +67,14 @@ def is_doi(identifier: str) -> bool:
     ]
 
     return any(re.match(pattern, identifier) for pattern in patterns)
+
+
+def is_isbn(identifier: str) -> bool:
+    """
+    Check if the given `identifier` is an ISBN.
+
+    This is just a super thin wrapper around `isbnlib.is_isbn10()` and
+    `isbnlib.is_isbn13()`.
+    """
+
+    return bool(is_isbn10(identifier)) or bool(is_isbn13(identifier))
