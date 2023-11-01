@@ -10,7 +10,7 @@
 **doi2bibtex** is a small Python package that can be used to resolve DOIs (and other identifiers) into a BibTeX entry and format them according to a customizable set of rules (see below for a full list of features). 
 
 <p align="center">
-   <img src="https://timothygebhard.de/files/d2b.gif" width="640" alt="A GIF showing how to use doi2bibtex in the command line">
+   <img src="https://timothygebhard.de/files/d2b.gif?" width="640" alt="A GIF showing how to use doi2bibtex in the command line">
 </p>
 
 
