@@ -59,6 +59,8 @@ If you want to use the `ads` backend to resolve the `adsurl` (a feature which is
 
 2. Create a file `~/.doi2bibtex/ads_token` and put your API key in there.
 
+> [!NOTE]  
+> If you do not want to use ADS, you can disable this feature by setting `resolve_adsurl: false` in your `~/.doi2bibtex/config.yaml` file.
 
 
 ### 💻 Using the command line interface
@@ -90,8 +92,8 @@ generate_citekey: true          # Create a citekey based on the first author and
 limit_authors: 1000             # Limit the number of authors in the BibTeX entry
 pygments_theme: 'dracula'       # Pygments theme used for syntax highlighting in the terminal
 remove_fields:                  # Remove undesired fields (e.g., keywords) from the BibTeX entry
-   - all: ['abstract']          # Remove the `abstract` from all entries, regardless of entrytype
-   - article: ['publisher']     # Remove the `publisher` field from @article entries
+  all: ['abstract']             # Remove the `abstract` from all entries, regardless of entrytype
+  article: ['publisher']        # Remove the `publisher` field from @article entries
 remove_url_if_doi: true         # Remove the `url` field if it is redundant with the `doi` field
 resolve_adsurl: true            # Query ADS to resolve the `adsurl` field, requires API token
 update_arxiv_if_doi: true       # Update arXiv entries with DOI information, if available ("related DOI")
@@ -103,7 +105,7 @@ update_arxiv_if_doi: true       # Update arXiv entries with DOI information, if 
 
 Besides the eponymous ability of resolving DOIs (and other identifiers) to BibTeX entries, this package offers a lot more features for post-processing the entries. Here are some highlights:
 
-- Automatically resolve the `adsurl` field required by many astrophysics journals
+- Automatically resolve the `adsurl` field required by some astrophysics journals (requires an [API token](https://ui.adsabs.harvard.edu/help/api/) for ADS)
 - Cross-match entries (in particular: arXiv preprints) with [dblp.org](https://dblp.org/) to retrieve the venue information for conference papers from machine learning (e.g., "ICLR 2021"). Note: This feature is still experimental because querying dblp is somewhat fickle.
 - Convert LaTeX-encoded characters in author names to Unicode, for example, `Müller` instead of `M{\"u}ller`
 - Author names can automatically be converted to the `{Lastname}, Firstname` format
