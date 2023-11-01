@@ -69,13 +69,13 @@ def test__dict_to_bibtex_string() -> None:
     }
     assert dict_to_bibtex_string(bibtex_dict) == (
         '@article{citekey,\n'
-        '  author    = {Jane Doe and Richard Roe},\n'
-        '  journal   = {The Made-Up Journal},\n'
-        '  month     = {10},\n'
-        '  number    = {2},\n'
-        '  pages     = {1197-1206},\n'
-        '  title     = {Some really cool paper},\n'
-        '  volume    = {725},\n'
-        '  year      = {2010}\n'
+        '  author        = {Jane Doe and Richard Roe},\n'
+        '  journal       = {The Made-Up Journal},\n'
+        '  month         = {10},\n'
+        '  number        = {2},\n'
+        '  pages         = {1197-1206},\n'
+        '  title         = {Some really cool paper},\n'
+        '  volume        = {725},\n'
+        '  year          = {2010}\n'
         '}'
     )

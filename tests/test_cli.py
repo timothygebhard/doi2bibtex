@@ -18,6 +18,7 @@ from doi2bibtex.config import Configuration
 # UNIT TESTS
 # -----------------------------------------------------------------------------
 
+
 def test__parse_cli_args(capsys: pytest.CaptureFixture) -> None:
     """
     Test `parse_cli_args()`.
@@ -62,11 +63,11 @@ def test__plain(
     assert (
         outerr.out
         == "@article{Kingma_2013,\n"
-        "  author    = {{Kingma}, Diederik P and {Welling}, Max},\n"
-        "  eprint    = {1312.6114},\n"
-        "  journal   = {arXiv preprints},\n"
-        "  title     = {Auto-Encoding Variational Bayes},\n"
-        "  year      = {2013}\n"
+        "  author        = {{Kingma}, Diederik P and {Welling}, Max},\n"
+        "  eprint        = {1312.6114},\n"
+        "  journal       = {arXiv preprints},\n"
+        "  title         = {Auto-Encoding Variational Bayes},\n"
+        "  year          = {2013}\n"
         "}\n"
     )
 
@@ -90,16 +91,22 @@ def test__fancy(
     outerr = capsys.readouterr()
     assert outerr.err == ""
     assert (
-        outerr.out
-        == "\nd2b: Resolve DOIs and arXiv IDs to BibTeX\n\nBibTeX entry for"
-        ' identifier "1312.6114":\n\n@article{Kingma_2013,                  '
-        "                                         \n  author    = {{Kingma},"
-        " Diederik P and {Welling}, Max},                        \n  eprint "
-        "   = {1312.6114},                                                  "
-        "    \n  journal   = {arXiv preprints},                             "
-        "                   \n  title     = {Auto-Encoding Variational"
-        " Bayes},                                \n  year      = {2013}     "
-        "                                                       \n}         "
-        "                                                                   "
-        "   \n\n\n"
+        list(map(lambda x: str(x).rstrip(' '), outerr.out.split("\n")))
+        == [
+            '',
+            'd2b: Resolve DOIs and arXiv IDs to BibTeX',
+            '',
+            'BibTeX entry for identifier "1312.6114":',
+            '',
+            '@article{Kingma_2013,',
+            '  author        = {{Kingma}, Diederik P and {Welling}, Max},',
+            '  eprint        = {1312.6114},',
+            '  journal       = {arXiv preprints},',
+            '  title         = {Auto-Encoding Variational Bayes},',
+            '  year          = {2013}',
+            '}',
+            '',
+            '',
+            '',
+        ]
     )
