@@ -49,7 +49,10 @@ pip install .
 
 ### 🔑 Setting up an API key for ADS
 
-If you want to use the `ads` backend to resolve the `adsurl` (a feature which is enabled by default), you need to create an ADS account (if you do not alreay have one) and set up an [API token](https://ui.adsabs.harvard.edu/help/api/) to be able to query ADS. You can actually do this in two different ways:
+> [!NOTE]  
+> If you do not want to use ADS, you can disable this feature (which is enabled by default) by setting `resolve_adsurl: false` in your `~/.doi2bibtex/config.yaml` file.
+
+If you want to use the `ads` backend to resolve the `adsurl` field, you need to create an ADS account (if you do not alreay have one) and set up an [API token](https://ui.adsabs.harvard.edu/help/api/) to be able to query ADS. You can actually do this in two different ways:
 
 1. Set the environment variable `ADS_TOKEN` to your API key:
    ```bash
@@ -58,9 +61,6 @@ If you want to use the `ads` backend to resolve the `adsurl` (a feature which is
    Ideally, you should add this line to your `.bashrc` or `.zshrc` file.
 
 2. Create a file `~/.doi2bibtex/ads_token` and put your API key in there.
-
-> [!NOTE]  
-> If you do not want to use ADS, you can disable this feature by setting `resolve_adsurl: false` in your `~/.doi2bibtex/config.yaml` file.
 
 
 ### 💻 Using the command line interface
