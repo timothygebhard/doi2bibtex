@@ -23,9 +23,12 @@ def resolve_isbn_with_google_api(isbn: str) -> dict:
     the BibTeX entry as a dictionary.
     """
 
+    # Remove all dashes from the ISBN; this seems to work more reliably?
+    query = isbn.replace("-", "")
+
     # Query the Google Books API
     r = requests.get(
-        url=f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}",
+        url=f"https://www.googleapis.com/books/v1/volumes?q=isbn:{query}",
         headers={"Accept": "application/json"},
     )
 
