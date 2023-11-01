@@ -38,7 +38,7 @@ def dict_to_bibtex_string(bibtex_dict: dict) -> str:
 
     # Set up a BibTeX writer
     writer = BibTexWriter()
-    writer.align_values = True
+    writer.align_values = 13
     writer.add_trailing_commas = True
     writer.indent = '  '
 

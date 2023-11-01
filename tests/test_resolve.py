@@ -137,11 +137,11 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
     assert (
         resolve_identifier("1312.6114", config) ==
         "@article{Kingma_2013,\n"
-        "  author    = {{Kingma}, Diederik P and {Welling}, Max},\n"
-        "  eprint    = {1312.6114},\n"
-        "  journal   = {arXiv preprints},\n"
-        "  title     = {Auto-Encoding Variational Bayes},\n"
-        "  year      = {2013}\n"
+        "  author        = {{Kingma}, Diederik P and {Welling}, Max},\n"
+        "  eprint        = {1312.6114},\n"
+        "  journal       = {arXiv preprints},\n"
+        "  title         = {Auto-Encoding Variational Bayes},\n"
+        "  year          = {2013}\n"
         "}"
     )
 
@@ -149,14 +149,14 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
     assert (
         resolve_identifier("10.1088/1742-6596/898/7/072029", config) ==
         "@article{Ritter_2017,\n"
-        "  author    = {{Ritter}, M and {Kuhr}, T and others},\n"
-        "  doi       = {10.1088/1742-6596/898/7/072029},\n"
-        "  journal   = {Journal of Physics: Conference Series},\n"
-        "  month     = {10},\n"
-        "  pages     = {072029},\n"
-        "  title     = {Software Quality Control at Belle II},\n"
-        "  volume    = {898},\n"
-        "  year      = {2017}\n"
+        "  author        = {{Ritter}, M and {Kuhr}, T and others},\n"
+        "  doi           = {10.1088/1742-6596/898/7/072029},\n"
+        "  journal       = {Journal of Physics: Conference Series},\n"
+        "  month         = {10},\n"
+        "  pages         = {072029},\n"
+        "  title         = {Software Quality Control at Belle II},\n"
+        "  volume        = {898},\n"
+        "  year          = {2017}\n"
         "}"
     )
 
@@ -199,12 +199,13 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
     assert (
         resolve_identifier("978-0262037310", config) ==
         "@book{Peters_2017,\n"
-        "  author    = {{Peters}, Jonas and {Janzing}, Dominik and others},\n"
-        "  isbn      = {978-0262037310},\n"
-        "  publisher = {MIT Press},\n"
-        "  title     = {Elements of Causal Inference: Foundations and "
+        "  author        = {{Peters}, Jonas and {Janzing}, Dominik and "
+        "others},\n"
+        "  isbn          = {978-0262037310},\n"
+        "  publisher     = {MIT Press},\n"
+        "  title         = {Elements of Causal Inference: Foundations and "
         "Learning Algorithms},\n"
-        "  year      = {2017}\n"
+        "  year          = {2017}\n"
         "}"
     )
 
