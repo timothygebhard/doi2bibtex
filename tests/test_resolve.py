@@ -27,7 +27,6 @@ from doi2bibtex.resolve import (
 # UNIT TESTS
 # -----------------------------------------------------------------------------
 
-
 # Do not run this test on CI where no ADS token is available
 @pytest.mark.skipif(
     condition=get_ads_token() is None,
@@ -196,6 +195,19 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
             "}"
         )
 
-    # Case 5: Failure due to invalid identifier
+    # Case 5: Resolve an ISBN
+    assert (
+        resolve_identifier("978-0262037310", config) ==
+        "@book{Peters_2017,\n"
+        "  author    = {{Peters}, Jonas and {Janzing}, Dominik and others},\n"
+        "  isbn      = {978-0262037310},\n"
+        "  publisher = {MIT Press},\n"
+        "  title     = {Elements of Causal Inference: Foundations and "
+        "Learning Algorithms},\n"
+        "  year      = {2017}\n"
+        "}"
+    )
+
+    # Case 6: Failure due to invalid identifier
     result = resolve_identifier("this-is-not-a-valid-identifier", config)
     assert "Unrecognized identifier" in result
