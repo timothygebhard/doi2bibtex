@@ -79,7 +79,7 @@ def get_ads_bibcode_for_identifier(identifier: str) -> str:
 
     # Find the result that matches the identifier
     for result in response["docs"]:
-        if any(identifier in _ for _ in result["identifier"]):
+        if any(identifier.lower() in _.lower() for _ in result["identifier"]):
             return str(result["bibcode"])
 
     # If we get here, we didn't find a match
