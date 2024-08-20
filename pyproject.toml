@@ -1,6 +1,15 @@
 [project]
 name = "doi2bibtex"
-dynamic = ["version"]
+dynamic = [
+    "description",
+    "readme",
+    "authors",
+    "classifiers",
+    "version",
+    "optional-dependencies",
+    "dependencies",
+    "scripts",
+]
 
 [build-system]
 requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
