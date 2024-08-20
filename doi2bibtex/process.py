@@ -56,6 +56,9 @@ def postprocess_bibtex(
     # Fix broken ampersand in A&A journal name
     bibtex_dict = fix_broken_ampersand(bibtex_dict)
 
+    # Fix broken page numbers (e.g., "160â€“175" instead of "160--175")
+    bibtex_dict = fix_broken_pagenumbers(bibtex_dict)
+
     # Convert escaped LaTeX character to proper Unicode
     if config.convert_latex_chars:
         bibtex_dict = convert_latex_chars(bibtex_dict)
@@ -200,6 +203,19 @@ def fix_broken_ampersand(bibtex_dict: dict) -> dict:
         )
         bibtex_dict["journal"] = bibtex_dict["journal"].replace(
             r"&amp;", r"\&"
+        )
+
+    return bibtex_dict
+
+
+def fix_broken_pagenumbers(bibtex_dict: dict) -> dict:
+    """
+    Fix broken pagenumbers (UTF-8 issue: "â€“" is an en-dash).
+    """
+
+    if "pages" in bibtex_dict:
+        bibtex_dict["pages"] = bibtex_dict["pages"].replace(
+            "â€“", "--"
         )
 
     return bibtex_dict
