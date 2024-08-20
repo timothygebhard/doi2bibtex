@@ -185,9 +185,6 @@ def fix_arxiv_entrytype(bibtex_dict: dict, identifier: str) -> dict:
 
     if is_arxiv_id(identifier):
         bibtex_dict["ENTRYTYPE"] = "article"
-        bibtex_dict["journal"] = "arXiv preprints"
-        if "eprinttype" in bibtex_dict:
-            del bibtex_dict["eprinttype"]
 
     return bibtex_dict
 
@@ -200,6 +197,9 @@ def fix_broken_ampersand(bibtex_dict: dict) -> dict:
     if "journal" in bibtex_dict:
         bibtex_dict["journal"] = bibtex_dict["journal"].replace(
             r"{\&}amp$\mathsemicolon$", r"\&"
+        )
+        bibtex_dict["journal"] = bibtex_dict["journal"].replace(
+            r"&amp;", r"\&"
         )
 
     return bibtex_dict
