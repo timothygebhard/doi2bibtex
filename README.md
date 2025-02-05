@@ -101,6 +101,59 @@ update_arxiv_if_doi: true       # Update arXiv entries with DOI information, if 
 
 
 
+### ✨ Using the `--clean-references` Feature
+
+The `--clean-references` feature automates the process of cleaning and standardizing the references in `.bib` files for your existing LaTeX projects. It scans `.tex` files for citations, matches them with entries in your `.bib` files, resolves DOIs (if available), and outputs cleaned `.bib` files with consistent formatting.
+
+This feature helps manage large reference libraries by ensuring:
+- Missing or inconsistent BibTeX entries in `.bib` files are flagged.
+- Resolved DOIs or BibTeX entries are updated and saved cleanly.
+- Outputs for resolved and unresolved references are clearly separated.
+
+---
+
+#### **Command Usage**
+
+```bash
+d2b --clean-references --tex-dir <path-to-tex-files> --bib-dir <path-to-bib-files> --output-dir <path-to-output>
+```
+
+#### **Arguments**
+
+| Argument       | Description                                                                                 |
+|----------------|---------------------------------------------------------------------------------------------|
+| `--tex-dir`    | Path to the directory containing `.tex` files where references (`\cite`) are located.       |
+| `--bib-dir`    | Path to the directory containing `.bib` files to be cleaned and matched.                    |
+| `--output-dir` | Path to save the cleaned references and unresolved entries.                                 |
+
+---
+
+#### **What Happens?**
+
+1. **Scans for References**:
+   - The tool scans all `.tex` files in `/path/to/my-latex/tex-files` to extract citation keys (e.g., the keys within `\cite{key}`).
+
+2. **Matches Citations**:
+   - It looks for matching entries in the `.bib` files stored in `/path/to/my-latex/bib-files`.
+
+3. **Resolves DOIs**:
+   - If a DOI (or relevant identifier) is found, it resolves it to its full BibTeX entry.
+   - Cleaned BibTeX entries are then saved in a properly formatted `.bib` file.
+
+4. **Handles Unresolved Entries**:
+   - Citation keys that cannot be matched or resolved are flagged and saved in a separate `.bib` file.
+
+5. **Generates Output**:
+   - **`references_clean.bib`**: Contains all cleaned and resolved BibTeX entries.
+   - **`references_unresolved.bib`**: Contains unresolved or unmatched entries for manual review.
+   - **`references.bib`**: Combines both resolved and unresolved entries.
+
+---
+
+
+
+
+
 ## 🦄 Features
 
 Besides the eponymous ability of resolving DOIs (and other identifiers) to BibTeX entries, this package offers a lot more features for post-processing the entries. Here are some highlights:

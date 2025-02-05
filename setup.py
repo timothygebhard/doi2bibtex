@@ -46,6 +46,7 @@ setup(
         "requests",
         "rich",
         "unidecode",
+        "tqdm",
     ],
     extras_require={
         "develop": [
