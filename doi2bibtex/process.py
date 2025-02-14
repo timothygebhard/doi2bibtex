@@ -6,6 +6,8 @@ Look up a BibTeX entry based on a DOI or arXiv ID.
 # IMPORTS
 # -----------------------------------------------------------------------------
 
+import re
+
 from bibtexparser.customization import splitname
 
 from doi2bibtex.ads import get_ads_bibcode_for_identifier
@@ -274,8 +276,19 @@ def generate_citekey(bibtex_dict: dict, delim: str = "_") -> dict:
     if von := first_author["von"]:
         lastname = "".join([_.title() for _ in von]) + lastname
 
-    # Combine the name and year to get the citekey
-    citekey = f"{lastname}{delim}{bibtex_dict['year']}"
+    # Add the first word of the title
+    articles = {"a", "the", "an"}
+    words = bibtex_dict["title"].split(" ")
+    first_non_article = next(
+        (word for word in words if word.lower() not in articles), None
+    )
+    if first_non_article is None:
+        title = "unknown"
+    else:
+        title = re.sub(r"[^a-zA-Z0-9]", "", first_non_article)
+
+    # Combine the name, year and title to get the citekey
+    citekey = f"{lastname}{delim}{bibtex_dict['year']}{delim}{title}"
 
     # Update the citekey of the BibTeX entry
     bibtex_dict["ID"] = citekey
