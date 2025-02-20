@@ -73,7 +73,7 @@ def postprocess_bibtex(
 
     # Generate a citekey
     if config.generate_citekey:
-        bibtex_dict = generate_citekey(bibtex_dict)
+        bibtex_dict = generate_citekey(bibtex_dict, config.citekey_delimiter)
 
     # Truncate the author list
     bibtex_dict = truncate_author_list(bibtex_dict, config)
