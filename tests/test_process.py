@@ -15,6 +15,7 @@ import pytest
 from doi2bibtex.ads import get_ads_token
 from doi2bibtex.config import Configuration
 from doi2bibtex.process import (
+    preprocess_arxiv_identifier,
     preprocess_identifier,
     postprocess_bibtex,
     abbreviate_journal_name,
@@ -34,6 +35,46 @@ from doi2bibtex.process import (
 # -----------------------------------------------------------------------------
 # UNIT TESTS
 # -----------------------------------------------------------------------------
+
+
+def test__preprocess_arxiv_identifier() -> None:
+    """
+    Test `preprocess_arxiv_identifier()`.
+    """
+
+    # List of all formats to test
+    test_cases = [
+        ("https://arxiv.org/abs/2301.07041", "2301.07041"),
+        ("https://www.arxiv.org/abs/2301.07041", "2301.07041"),
+        ("www.arxiv.org/abs/2301.07041", "2301.07041"),
+        ("arxiv.org/abs/2301.07041", "2301.07041"),
+        ("https://doi.org/10.48550/arXiv.2301.07041", "2301.07041"),
+        ("doi.org/10.48550/arXiv.2301.07041", "2301.07041"),
+        ("10.48550/arXiv.2301.07041", "2301.07041"),
+        ("arXiv:2301.07041", "2301.07041"),
+        ("2301.07041", "2301.07041"),
+        # With version
+        ("https://arXiv.org/abs/2301.07041v2", "2301.07041v2"),
+        ("https://arxiv.org/abs/2301.07041v2", "2301.07041v2"),
+        # Old arXiv format
+        ("https://arxiv.org/abs/hep-th/9901001", "hep-th/9901001"),
+        ("hep-th/9901001", "hep-th/9901001"),
+        # Case variations for arXiv
+        ("ARXIV:2301.07041", "2301.07041"),
+        ("arXiv:2301.07041", "2301.07041"),
+        ("ArXiv:2301.07041", "2301.07041"),
+        ("arXiv.2301.07041", "2301.07041"),
+        ("arxiv.2301.07041", "2301.07041"),
+        ("https://doi.org/10.48550/ARXIV.2301.07041", "2301.07041"),
+    ]
+
+    for input_str, expected_output in test_cases:
+        result = preprocess_arxiv_identifier(input_str)
+        assert result == expected_output, (
+            f"Failed for input '{input_str}': "
+            f"expected '{expected_output}', got '{result}'"
+        )
+
 
 def test__preprocess_identifier() -> None:
     """
@@ -218,7 +259,7 @@ def test__fix_arxiv_entrytype() -> None:
             },
             identifier="2008.0555",
         ),
-        {"ENTRYTYPE": "article", "journal": "arXiv preprints"},
+        {"ENTRYTYPE": "article", "eprinttype": "arXiv"},
     )
 
 

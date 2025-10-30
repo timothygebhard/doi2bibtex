@@ -103,18 +103,19 @@ def test__resolve_doi(monkeypatch: pytest.MonkeyPatch) -> None:
         resolve_doi("10.1088/1742-6596/898/7/072029"),
         {
             "journal": "Journal of Physics: Conference Series",
-            "title": "Software Quality Control at Belle {II}",
+            "title": "Software Quality Control at Belle II",
             "author": (
-                "M Ritter and T Kuhr and T Hauth and T Gebard and "
-                "M Kristof and C Pulvermacher and"
+                "Ritter, M and Kuhr, T and Hauth, T and Gebard, T and "
+                "Kristof, M and Pulvermacher, C"
             ),
             "pages": "072029",
             "volume": "898",
-            "publisher": "{IOP} Publishing",
-            "month": "oct",
+            "publisher": "IOP Publishing",
+            "month": "October",
             "year": "2017",
-            "url": "https://doi.org/10.1088%2F1742-6596%2F898%2F7%2F072029",
+            "url": "http://dx.doi.org/10.1088/1742-6596/898/7/072029",
             "doi": "10.1088/1742-6596/898/7/072029",
+            "issn": "1742-6596",
             "ENTRYTYPE": "article",
             "ID": "Ritter_2017",
         },
@@ -139,7 +140,7 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
         "@article{Kingma_2013,\n"
         "  author        = {{Kingma}, Diederik P and {Welling}, Max},\n"
         "  eprint        = {1312.6114},\n"
-        "  journal       = {arXiv preprints},\n"
+        "  eprinttype    = {arXiv},\n"
         "  title         = {Auto-Encoding Variational Bayes},\n"
         "  year          = {2013}\n"
         "}"
@@ -151,10 +152,12 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
         "@article{Ritter_2017,\n"
         "  author        = {{Ritter}, M and {Kuhr}, T and others},\n"
         "  doi           = {10.1088/1742-6596/898/7/072029},\n"
+        "  issn          = {1742-6596},\n"
         "  journal       = {Journal of Physics: Conference Series},\n"
         "  month         = {10},\n"
         "  pages         = {072029},\n"
         "  title         = {Software Quality Control at Belle II},\n"
+        "  url           = {http://dx.doi.org/10.1088/1742-6596/898/7/072029},\n"
         "  volume        = {898},\n"
         "  year          = {2017}\n"
         "}"

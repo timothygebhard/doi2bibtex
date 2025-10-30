@@ -6,6 +6,8 @@ Look up a BibTeX entry based on a DOI or arXiv ID.
 # IMPORTS
 # -----------------------------------------------------------------------------
 
+import re
+
 from bibtexparser.customization import splitname
 
 from doi2bibtex.ads import get_ads_bibcode_for_identifier
@@ -23,23 +25,83 @@ from doi2bibtex.utils import (
 # -----------------------------------------------------------------------------
 # DEFINITIONS
 # -----------------------------------------------------------------------------
+def preprocess_arxiv_identifier(identifier: str) -> str:
+    """
+    Extract the arXiv ID from various formats.
+
+    Supports:
+    - https://arxiv.org/abs/XXXX.XXXXX
+    - arxiv.org/abs/XXXX.XXXXX
+    - https://doi.org/10.48550/arXiv.XXXX.XXXXX
+    - doi.org/10.48550/arXiv.XXXX.XXXXX
+    - 10.48550/arXiv.XXXX.XXXXX
+    - arXiv.XXXX.XXXXX or arXiv:XXXX.XXXXX
+    - XXXX.XXXXX (plain ID)
+
+    Works with old format (pre-2007): arch-ive/YYMMNNN
+    Works with new format (post-2007): YYMM.NNNNN
+
+    With or without 'www' and case-insensitive for 'arXiv'.
+
+    Returns the extracted arXiv ID or the original identifier if no pattern matches.
+    """
+
+    identifier = identifier.lower()
+
+    # Pattern for https://arxiv.org/abs/... or arxiv.org/abs/...
+    arxiv_url_match = re.search(
+        r"(?:https?://)?(?:www\.)?arxiv\.org/abs/(.+)",
+        identifier,
+        re.IGNORECASE
+    )
+    if arxiv_url_match:
+        return arxiv_url_match.group(1).strip()
+
+    # Pattern for DOI URLs: https://doi.org/10.48550/arXiv.XXXX.XXXXX
+    doi_url_match = re.search(
+        r"(?:https?://)?(?:www\.)?doi\.org/10\.48550/arxiv[\.:](.+)",
+        identifier,
+        re.IGNORECASE
+    )
+    if doi_url_match:
+        return doi_url_match.group(1).strip()
+
+    # Pattern for DOI without domain: 10.48550/arXiv.XXXX.XXXXX
+    doi_prefix_match = re.search(
+        r"^10\.48550/arxiv[\.:](.+)",
+        identifier,
+        re.IGNORECASE
+    )
+    if doi_prefix_match:
+        return doi_prefix_match.group(1).strip()
+
+    # Pattern for arXiv prefix: arXiv.XXXX.XXXXX or arXiv:XXXX.XXXXX
+    arxiv_prefix_match = re.search(
+        r"^arxiv[\.:](.+)",
+        identifier,
+        re.IGNORECASE
+    )
+    if arxiv_prefix_match:
+        return arxiv_prefix_match.group(1).strip()
+
+    # Return the identifier as-is if no pattern matched
+    return identifier
 
 def preprocess_identifier(identifier: str) -> str:
     """
     Pre-process the given `identifier`: Remove any leading or trailing
     whitespace, and remove the "doi:" or "arXiv:" prefix.
+    Also extract arXiv IDs from various URL formats.
     """
 
-    # Remove leading and trailing whitespace
-    identifier = identifier.strip()
+    # Remove non-printable ASCII characters and whitespace (keep only characters from ! to ~)
+    identifier = re.sub(r'[^\x21-\x7E]', '', identifier)
 
     # Remove the "doi:" prefix
     if identifier.startswith("doi:") or identifier.startswith("DOI:"):
         identifier = identifier[4:]
-
-    # Remove the "arXiv:" prefix
-    if identifier.startswith("arXiv:") or identifier.startswith("arxiv:"):
-        identifier = identifier[6:]
+    elif "arxiv" in identifier.lower():
+        identifier = preprocess_arxiv_identifier(identifier)
 
     return identifier
 

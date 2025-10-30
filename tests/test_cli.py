@@ -65,7 +65,7 @@ def test__plain(
         == "@article{Kingma_2013,\n"
         "  author        = {{Kingma}, Diederik P and {Welling}, Max},\n"
         "  eprint        = {1312.6114},\n"
-        "  journal       = {arXiv preprints},\n"
+        "  eprinttype    = {arXiv},\n"
         "  title         = {Auto-Encoding Variational Bayes},\n"
         "  year          = {2013}\n"
         "}\n"
@@ -101,7 +101,7 @@ def test__fancy(
             '@article{Kingma_2013,',
             '  author        = {{Kingma}, Diederik P and {Welling}, Max},',
             '  eprint        = {1312.6114},',
-            '  journal       = {arXiv preprints},',
+            '  eprinttype    = {arXiv},',
             '  title         = {Auto-Encoding Variational Bayes},',
             '  year          = {2013}',
             '}',
