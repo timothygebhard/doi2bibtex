@@ -29,7 +29,7 @@ def test__resolve_isbn_with_google_api() -> None:
     bibtex_dict = resolve_isbn_with_google_api("978-1-4008-3530-0")
     assert bibtex_dict == {
         "ENTRYTYPE": "book",
-        "ID": "Seager_2010",
+        "ID": "Seager_2010_exoplanet",
         "author": "Sara Seager",
         "isbn": "978-1-4008-3530-0",
         "publisher": "Princeton University Press",
@@ -41,7 +41,7 @@ def test__resolve_isbn_with_google_api() -> None:
     bibtex_dict = resolve_isbn_with_google_api("9780691248493")
     assert bibtex_dict == {
         "ENTRYTYPE": "book",
-        "ID": "Sinclair_2023",
+        "ID": "Sinclair_2023_birds",
         "author": (
             "Ian Sinclair and Phil Hockey and Warwick Tarboton and "
             "Niall Perrins and Dominic Rollinson and Peter Ryan"

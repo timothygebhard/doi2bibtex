@@ -62,7 +62,7 @@ def test__plain(
     assert outerr.err == ""
     assert (
         outerr.out
-        == "@article{Kingma_2013,\n"
+        == "@article{Kingma_2013_autoencoding,\n"
         "  author        = {{Kingma}, Diederik P and {Welling}, Max},\n"
         "  eprint        = {1312.6114},\n"
         "  journal       = {arXiv preprints},\n"
@@ -98,7 +98,7 @@ def test__fancy(
             '',
             'BibTeX entry for identifier "1312.6114":',
             '',
-            '@article{Kingma_2013,',
+            '@article{Kingma_2013_autoencoding,',
             '  author        = {{Kingma}, Diederik P and {Welling}, Max},',
             '  eprint        = {1312.6114},',
             '  journal       = {arXiv preprints},',

@@ -24,14 +24,21 @@ def doi_to_url(doi: str) -> str:
     encoded_doi = urllib.parse.quote(doi, safe="")
     return f"https://doi.org/{encoded_doi}"
 
-
-def latex_to_unicode(text: str) -> str:
+def latex_to_unicode(text: str, **kwargs) -> str:
     """
     Convert LaTeX-escaped to Unicode. Example: "{\"a}" -> "ä".
     Note: characters in math mode are *not* converted.
+    
+    Additional kwargs are passed to LatexNodes2Text.
+    Default: math_mode='verbatim' (can be overridden)
     """
-    return str(LatexNodes2Text(math_mode='verbatim').latex_to_text(text))
-
+    # Default parameters
+    default_params = {'math_mode': 'verbatim'}
+    
+    # Merge: kwargs override defaults
+    params = {**default_params, **kwargs}
+    
+    return str(LatexNodes2Text(**params).latex_to_text(text))
 
 def remove_accented_characters(string: str) -> str:
     """

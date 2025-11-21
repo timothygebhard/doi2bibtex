@@ -78,7 +78,7 @@ def test__postprocess_bibtex(monkeypatch: pytest.MonkeyPatch) -> None:
         "url": "https://doi.org/10.1103%2Fphysrevd.100.063015",
         "doi": "10.1103/physrevd.100.063015",
         "ENTRYTYPE": "article",
-        "ID": "Gebhard_2019",
+        "ID": "Gebhard_2019_convolutionnal",
     }
 
     assert not DeepDiff(
@@ -100,7 +100,7 @@ def test__postprocess_bibtex(monkeypatch: pytest.MonkeyPatch) -> None:
             "year": "2019",
             "doi": "10.1103/physrevd.100.063015",
             "ENTRYTYPE": "article",
-            "ID": "Gebhard_2019",
+            "ID": "Gebhard_2019_convolutional",
         },
     )
 
@@ -263,7 +263,7 @@ def test__generate_citekey() -> None:
         "year": "1605",
     }
     bibtex_dict_2 = {
-        "ID": "DeLaMancha::1605",
+        "ID": "DeLaMancha::1605::stories",
         "ENTRYTYPE": "book",
         "author": "Don Quixote de la Mancha",
         "title": "Stories about windmills",

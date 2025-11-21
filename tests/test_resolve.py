@@ -136,7 +136,7 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
     # Case 1: Successfully resolve an arXiv identifier
     assert (
         resolve_identifier("1312.6114", config) ==
-        "@article{Kingma_2013,\n"
+        "@article{Kingma_2013_autoencoding,\n"
         "  author        = {{Kingma}, Diederik P and {Welling}, Max},\n"
         "  eprint        = {1312.6114},\n"
         "  journal       = {arXiv preprints},\n"
@@ -148,7 +148,7 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
     # Case 2: Successfully resolve a DOI
     assert (
         resolve_identifier("10.1088/1742-6596/898/7/072029", config) ==
-        "@article{Ritter_2017,\n"
+        "@article{Ritter_2017_software,\n"
         "  author        = {{Ritter}, M and {Kuhr}, T and others},\n"
         "  doi           = {10.1088/1742-6596/898/7/072029},\n"
         "  journal       = {Journal of Physics: Conference Series},\n"
@@ -170,7 +170,7 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
     if get_ads_token(raise_on_error=False) is not None:
         assert (
             resolve_identifier("2010ApJ...721L..67R", config) ==
-            "@article{Robinson_2010,\n"
+            "@article{Robinson_2010_detecting,\n"
             "  adsnote       = {Provided by the SAO/NASA Astrophysics "
             "Data System},\n"
             "  adsurl        = {https://ui.adsabs.harvard.edu/abs/"
@@ -198,7 +198,7 @@ def test__resolve_identifier(monkeypatch: pytest.MonkeyPatch) -> None:
     # Case 5: Resolve an ISBN
     assert (
         resolve_identifier("978-0262037310", config) ==
-        "@book{Peters_2017,\n"
+        "@book{Peters_2017_elements,\n"
         "  author        = {{Peters}, Jonas and {Janzing}, Dominik and "
         "others},\n"
         "  isbn          = {978-0262037310},\n"
