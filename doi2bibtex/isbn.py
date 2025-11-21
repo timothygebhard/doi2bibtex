@@ -7,9 +7,9 @@ Resolve ISBN numbers to BibTeX entries.
 # -----------------------------------------------------------------------------
 
 import json
-
 import requests
 
+from doi2bibtex.config import Configuration
 from doi2bibtex.process import generate_citekey
 
 
@@ -17,7 +17,7 @@ from doi2bibtex.process import generate_citekey
 # DEFINITIONS
 # -----------------------------------------------------------------------------
 
-def resolve_isbn_with_google_api(isbn: str) -> dict:
+def resolve_isbn_with_google_api(isbn: str, config: Configuration) -> dict:
     """
     Resolve a given `isbn` number using the Google Books API and return
     the BibTeX entry as a dictionary.
@@ -64,6 +64,6 @@ def resolve_isbn_with_google_api(isbn: str) -> dict:
     }
 
     # Construct the citekey
-    bibtex_dict = generate_citekey(bibtex_dict)
+    bibtex_dict = generate_citekey(bibtex_dict, delim=config.citekey_delimiter)
 
     return bibtex_dict

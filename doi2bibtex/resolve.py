@@ -125,7 +125,7 @@ def resolve_identifier(identifier: str, config: Configuration) -> str:
         elif is_ads_bibcode(identifier):
             bibtex_dict = resolve_ads_bibcode(identifier)
         elif is_isbn(identifier):
-            bibtex_dict = resolve_isbn_with_google_api(identifier)
+            bibtex_dict = resolve_isbn_with_google_api(identifier, config)
         else:
             raise RuntimeError(f"Unrecognized identifier: {identifier}")
 
