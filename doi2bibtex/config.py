@@ -39,6 +39,9 @@ class Configuration:
         self.remove_url_if_doi: bool = True
         self.resolve_adsurl: bool = True
         self.update_arxiv_if_doi: bool = True
+        self.openalex_email: str = ""
+        self.search_sources: List[str] = ["openalex", "crossref"]
+        self.merge_search_results: bool = True
 
         # Load the configuration from the config file
         self.load_from_yaml_file()

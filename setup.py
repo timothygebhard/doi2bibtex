@@ -46,6 +46,13 @@ setup(
         "requests",
         "rich",
         "unidecode",
+        "prompt_toolkit",
+        "rapidocr-onnxruntime",
+        "numpy",
+        "pyperclip",
+        "lazy_loader",
+        "Pillow",
+        "pylatexenc",
     ],
     extras_require={
         "develop": [

@@ -34,12 +34,25 @@ def test__parse_cli_args(capsys: pytest.CaptureFixture) -> None:
     assert args.plain
     assert args.identifier == "some-other-id"
 
-    # Case 3
+    # Case 3 - Test --title option
+    args = parse_cli_args(["--title", "Some paper title"])
+    assert args.title == "Some paper title"
+    assert not args.first
+
+    # Case 4 - Test --title with --first
+    args = parse_cli_args(["--title", "Another title", "--first"])
+    assert args.title == "Another title"
+    assert args.first
+
+    # Case 5 - Test help message
     try:
         parse_cli_args(["--help"])
     except SystemExit:
         pass
-    assert "[-h] [--plain] [--version] [IDENTIFIER]" in capsys.readouterr().out
+    help_output = capsys.readouterr().out
+    assert "IDENTIFIER" in help_output
+    assert "--title" in help_output
+    assert "--first" in help_output
 
 
 def test__plain(

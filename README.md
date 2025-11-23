@@ -10,9 +10,8 @@
 **doi2bibtex** is a small Python package that can be used to resolve DOIs (and other identifiers) into a BibTeX entry and format them according to a customizable set of rules (see below for a full list of features). 
 
 <p align="center">
-   <img src="https://timothygebhard.de/files/d2b.gif?" width="640" alt="A GIF showing how to use doi2bibtex in the command line">
+   <img src="./assets/demo.gif" width="600" alt="A GIF showing how to use doi2bibtex in the command line">
 </p>
-
 
 Most features of **doi2bibtex** are availabe in other tools. 
 For example, you can chain together [doi2bib](https://www.doi2bib.org) with [bibtool](https://github.com/ge-ne/bibtool) or [bibtex-tidy](https://github.com/FlamingTempura/bibtex-tidy) and recover most of the functionality in this package (and some of these tools are actually used under the hood). 
@@ -47,20 +46,22 @@ pip install .
 
 
 
-### 🔑 Setting up an API key for ADS
+### 🔑 Setting up an API key
+
+You can use an API key either by setting an environment variable and exporting it (`export MY_TOKEN="xxx" d2b`), or by creating a dedicated file in the config directory `~/.doi2bibtex`.
+
+#### ADS
+
+> Environment variable name `ADS_TOKEN` or filename `ads_token`
 
 > [!NOTE]  
 > If you do not want to use ADS, you can disable this feature (which is enabled by default) by setting `resolve_adsurl: false` in your `~/.doi2bibtex/config.yaml` file.
 
 If you want to use the `ads` backend to resolve the `adsurl` field, you need to create an ADS account (if you do not alreay have one) and set up an [API token](https://ui.adsabs.harvard.edu/help/api/) to be able to query ADS. You can actually do this in two different ways:
 
-1. Set the environment variable `ADS_TOKEN` to your API key:
-   ```bash
-   export ADS_TOKEN="your-token";
-   ```
-   Ideally, you should add this line to your `.bashrc` or `.zshrc` file.
+#### Semantic Scholar
 
-2. Create a file `~/.doi2bibtex/ads_token` and put your API key in there.
+> Environment variable name `SEMANTIC_SCHOLAR_API_KEY` or filename `semanticscholar_api_key`
 
 
 ### 💻 Using the command line interface
@@ -73,7 +74,59 @@ d2b <doi-or-arxiv_id>
 
 You can also add the `--plain` flag to output only the BibTeX entry without any fancy formatting. This can be useful if you, for example, want to pipe the output of the `d2b` command to another program.
 
+### 🔍 Search by title
 
+You can search for papers by title using the `--title` flag:
+
+```bash
+d2b --title "Attention is all you need"
+```
+
+This will search for papers matching the title and display an interactive selection menu where you can browse results and choose the one you want. Add `--first` to automatically select the first result:
+
+```bash
+d2b --title "Deep Learning" --first
+```
+
+### 🎨 Interactive mode
+
+Launch **doi2bibtex** without any arguments to enter interactive mode:
+
+```bash
+d2b
+```
+
+This opens an interactive console where you can search by title or DOI, explore potential matches, and retrieve BibTeX citations.
+This feature is particularly useful when working with open PDFs where the title is easier to copy than the DOI, since DOIs often are superimposed on papers making them difficult to select, whereas titles are typically plain text. Additionally, since copied titles often span multiple lines due to formatting, it would normally break when pasted into a standard terminal command.
+
+Each search result displays:
+- Paper title
+- Authors
+- Publication year
+- Journal/venue
+- Abstract
+
+The console also supports pasting images directly, using OCR ([RapidOCR](https://github.com/RapidAI/RapidOCR)) to extract the title automatically.
+
+**Note:** The image is processed only to be converted as plain text. It does not automatically locate the title within a full page. Ensure your image is cropped to focus on the title area.
+While automatic title detection is technically feasible ([GROBID](https://github.com/kermitt2/grobid), [VILA](https://github.com/NVlabs/VILA), [CERMINE](https://github.com/CeON/CERMINE), [Moondream2](https://huggingface.co/vikhyatk/moondream2), [Qwen3-VL 2B](https://github.com/QwenLM/Qwen3-VL)), it would require significant computational resources without providing proportional benefits for this project's use case.
+
+### 🌐 Multi-source search
+
+**doi2bibtex** uses multiple academic search APIs to find papers by title. By default, it queries three sources in parallel and merges the results:
+
+1. **OpenAlex** (default)
+2. **CrossRef**
+3. **Semantic Scholar**
+
+Use the config file to select desired endpoint (default: `search_sources: ["openalex", "crossref"]`)
+
+#### Search modes
+
+The search system can operate in two modes:
+
+- **Parallel mode** (default `merge_search_results: true` in the config): Queries all enabled sources simultaneously, then interleaves results (1st from each source, then 2nd from each, etc.) and removes duplicates by DOI
+- **Sequential mode**: Tries sources in order until results are found
 
 
 ### ⚙️ Changing the default configuration
@@ -97,14 +150,24 @@ remove_fields:                  # Remove undesired fields (e.g., keywords) from 
 remove_url_if_doi: true         # Remove the `url` field if it is redundant with the `doi` field
 resolve_adsurl: true            # Query ADS to resolve the `adsurl` field, requires API token
 update_arxiv_if_doi: true       # Update arXiv entries with DOI information, if available ("related DOI")
+search_sources: ["openalex", "crossref", "semanticscholar"] # Sources to query when searching articles by title
+merge_search_results: true # If true, combines results from all sources; if false, uses sources sequentially until a match is found
+openalex_email: "" # OpenAlex email if needed
 ```
 
 
 
 ## 🦄 Features
 
-Besides the eponymous ability of resolving DOIs (and other identifiers) to BibTeX entries, this package offers a lot more features for post-processing the entries. Here are some highlights:
+Besides the eponymous ability of resolving DOIs (and other identifiers) to BibTeX entries, this package offers a lot more features:
 
+### Search & Discovery
+- **Interactive mode** with title search, DOI lookup, and history navigation
+- **OCR support** for extracting research title/DOI text from images 
+- **Search by title**
+- **Post-processing customization**
+
+### BibTeX post-processing
 - Automatically resolve the `adsurl` field required by some astrophysics journals (requires an [API token](https://ui.adsabs.harvard.edu/help/api/) for ADS)
 - Cross-match entries (in particular: arXiv preprints) with [dblp.org](https://dblp.org/) to retrieve the venue information for conference papers from machine learning (e.g., "ICLR 2021"). Note: This feature is still experimental because querying dblp is somewhat fickle.
 - Convert LaTeX-encoded characters in author names to Unicode, for example, `Müller` instead of `M{\"u}ller`

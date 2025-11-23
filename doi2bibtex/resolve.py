@@ -6,11 +6,12 @@ Methods for resolving identifiers to BibTeX entries.
 # IMPORTS
 # -----------------------------------------------------------------------------
 
+from typing import List, Dict, Any
+
 from bs4 import BeautifulSoup
-
 import json
-
 import requests
+
 
 from doi2bibtex.ads import get_ads_token
 from doi2bibtex.bibtex import bibtex_string_to_dict, dict_to_bibtex_string
@@ -18,6 +19,7 @@ from doi2bibtex.config import Configuration
 from doi2bibtex.identify import is_ads_bibcode, is_arxiv_id, is_doi, is_isbn
 from doi2bibtex.isbn import resolve_isbn_with_google_api
 from doi2bibtex.process import preprocess_identifier, postprocess_bibtex
+from doi2bibtex.search import search_papers
 
 
 # -----------------------------------------------------------------------------
@@ -105,7 +107,7 @@ def resolve_doi(doi: str) -> dict:
     return bibtex
 
 
-def resolve_identifier(identifier: str, config: Configuration) -> str:
+def resolve_identifier(identifier: str, config: Configuration, raise_on_error=False) -> str:
     """
     Resolve the given `identifier` to a BibTeX entry. This function
     basically just determines the type of the identifier, calls the
@@ -147,4 +149,16 @@ def resolve_identifier(identifier: str, config: Configuration) -> str:
         return dict_to_bibtex_string(bibtex_dict).strip()
 
     except Exception as e:
+        if raise_on_error :
+            raise e
+        
         return "\n" + "  There was an error:\n  " + str(e) + "\n"
+
+# Wrapper for backward compatibility (returns tuple)
+def resolve_title(title: str, config: Configuration, limit: int = 10):
+    """
+    Resolve paper title to results using configured search sources.
+    Returns (results, warnings) tuple.
+    """
+    return search_papers(title, config, limit)
+
